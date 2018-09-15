@@ -8,7 +8,7 @@ set(JSON_EXE json.cpp) # Установка переменной со списк
 
 include_directories("include/") # показываем, где можно искать заголовочные файлы 
 
-add_library(my_library STATIC sources/son.cpp Json.h) # Создание статической библиотеки с именем my_library
+add_library(my_library STATIC sources/son.cpp) # Создание статической библиотеки с именем my_library
 
 add_executable(json sources/json.cpp) # Создает исполняемый файл с именем json
 
