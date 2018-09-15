@@ -3,7 +3,9 @@
 
 #include <fstream>
 #include <iostream>
-#include <Windows.h>
+#ifdef WIN32
+#include <windows.h>
+#endif
 #include "Json.h"
 
 using namespace std;
@@ -11,8 +13,10 @@ using namespace std;
 
 int main()
 {
+#ifdef WIN32
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+#endif
 
 	string json="{ \n\"lastname\" : \"Ivanov\",\n\"firstname\" : \"Ivan\",\n\"age\" : 25,\n\"islegal\" : false,\n\"marks\" : [\n4, 5, 5, 5, 2, 3\n],\n\"address\" : {\n\"city\" : \"Moscow\",\n\"street\" : \"Vozdvijenka\"\n\n}";
 	
