@@ -10,7 +10,7 @@ string json = "{\n\"lastname\" : \"Ivanov\",\n\"firstname\" : \"Ivan\",\n\"age\"
 
 TEST_CASE("Testing pare") {
 	Json student = Json::parse(json);
-	REQUIRE(student["lastname"])== "Ivanov");
+	REQUIRE(student["lastname"]== "Ivanov");
 	REQUIRE(student["islegal"]== false);
 	REQUIRE(student["age"]== 25);
 	
