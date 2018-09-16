@@ -1,19 +1,24 @@
 #include "catch.hpp"
 #include "Json.h"
 #include <string>
-#inclued <any>
+#include <any>
+
+using namespace std;
 
 
-std::string json = "{\n\"lastname\" : \"Ivanov\",\n\"firstname\" : \"Ivan\",\n\"age\" : 25,\n\"islegal\" : false,\n\"marks\" : [\n4, 5, 5, 5, 2, 3\n],\n\"address\" : {\n\"city\" : \"Moscow\",\n\"street\" : \"Vozdvijenka\"\n\n}";
-Json student = Json::parse(json);
-EXPECT_EQ(std::any_cast<std::string>(student["lastname"]), "Ivanov");
-EXPECT_EQ(std::any_cast<bool>(student), false);
-EXPECT_EQ(std::any_cast<int>(student["age"]), 25);
+string json = "{\n\"lastname\" : \"Ivanov\",\n\"firstname\" : \"Ivan\",\n\"age\" : 25,\n\"islegal\" : false,\n\"marks\" : [\n4, 5, 5, 5, 2, 3\n],\n\"address\" : {\n\"city\" : \"Moscow\",\n\"street\" : \"Vozdvijenka\"\n\n}";
 
-auto marks = std::any_cast<Json>(object["marks"]);
-EXPECT_EQ(std::any_cast<int>(marks[0]), 4);
-EXPECT_EQ(std::any_cast<int>(marks[1]), 5);
-
-auto address = std::any_cast<Json>(object["address"]);
-EXPECT_EQ(std::any_cast<std::string>(address["city"]), "Moscow");
-EXPECT_EQ(std::any_cast<std::string>(address["street"]), "Vozdvijenka");
+TEST_CASE("Testing pare") {
+	Json student = Json::parse(json);
+	REQUIRE(student["lastname"]), "Ivanov");
+	REQUIRE(student["islegal"], false);
+	REQUIRE(student["age"], 25);
+	
+	auto marks = any_cast<Json>(student["marks"]);
+	REQUIRE(marks[0], 4);
+	REQUIRE(marks[1], 5);
+	
+	auto address = any_cast<Json>(student["address"]);
+	REQUIRE(address["city"], "Moscow");
+	REQUIRE(address["street"], "Vozdvijenka");
+}
