@@ -13,8 +13,6 @@ Json::Json(std::vector<std::any>& v) {
 }
 
 Json::Json(const std::string & s) {
-	//std::string *s1=s;
-	//std::vector<int> v;
 	int i = 0;
 	std::string key = "", value1 = "";
 	std::any value;
@@ -28,6 +26,9 @@ Json::Json(const std::string & s) {
 		}
 		if (s[i] == ':') {
 			++i;
+			while (s[i] == ' ') {
+				++i;
+			}
 			if (s[i] == '"') {
 				++i;
 				while (s[i] != '"') {
@@ -35,21 +36,36 @@ Json::Json(const std::string & s) {
 					++i;
 				}
 				object.field_obj.insert(std::pair<std::string, std::string>(key,value1));
-				//object.field_obj.insert(std::pair<std::string, std::string>(key, value1));
 				key = value1 = "";
 			} else {
 				if (s[i]=='[') {
 					std::vector<std::any> v;
 					while (s[i]!=']') {
 						++i;
+						while (s[i]==' ') {
+							++i;
+						}
 						if (isdigit(s[i])) {
-							v.push_back(atoi(&(s[i])));
+							v.push_back(atof(&(s[i])));
+							while (s[i]!=',' && s[i]!=']') {
+								++i;
+							}
+						}
+						else {
+							if (s[i]=='"') {
+								++i;
+								std::string s_arr="";
+								while (s[i]!='"') {
+									s_arr += s[i];
+									++i;
+								}
+								v.push_back(s_arr);
+							}
 						}
 					}
 					Json temp_arr(v);
 					value = temp_arr;
 					object.field_obj.insert(std::pair<std::string, std::any>(key, value));
-					//mas.field_mas = v;
 				}
 				else {
 					if (s[i]=='{') {
@@ -61,75 +77,51 @@ Json::Json(const std::string & s) {
 						temp_s += '}';
 						Json temp(temp_s);
 						object.field_obj.insert(std::pair<std::string,Json>(key,temp));
-						//std::map<std::string, std::any> my_map;
-						/*std::string key_2;
-						std::any value_2;
-						while (s[i]!='}') {
-							++i;
-							if (s[i] == '"') {
-								++i;
-								while (s[i] != '"') {
-									key_2 += s[i];
-									++i;
-								}
-							}
-							if (s[i] == ':') {
-								i += 2;
-								if (s[i] == '"') {
-									++i;
-									while (s[i] != '"') {
-										value1 += s[i];
-										++i;
-									}
-									temp.
-									my_map.insert(std::pair<std::string, std::string>(key2, value1));
-									key2 = value1 = "";
-								}
-								else {
-									if (s[i] == '[') {
-										while (s[i] != ']') {
-											++i;
-											if (isdigit(s[i])) {
-												v.push_back(atoi(&(s[i])));
-											}
-										}
-										mas.field_mas = v;
-									}
-									else {
-										if (isdigit(s[i])) {
-											value = atoi(&(s[i]));
-										}
-										else {
-											if (s[i] == 'f') {
-												value = false;
-											}
-											else {
-												value = true;
-											}
-										}
-										my_map.insert(std::pair<std::string, std::any>(key2, value1));
-									}
-									key2 = "";
-								}
-							}
-						}
-						value = my_map;*/
 					}
 					else {
 						if (isdigit(s[i])) {
-							value = atoi(&(s[i]));
-							//value2 = atoi((s1+i).c_str());
+							value = atof(&(s[i]));
+							object.field_obj.insert(std::pair<std::string, std::any>(key, value));
 						}
 						else {
 							if (s[i] == 'f') {
-								value = false;
+								std::string s_bool="";
+								while (s[i]!=',') {
+									s_bool += s[i];
+									++i;
+								}
+								if (s_bool == "false") {
+									value = false;
+									object.field_obj.insert(std::pair<std::string, std::any>(key, value));
+								}
 							}
 							else {
-								value = true;
+								if (s[i] == 't') {
+									std::string s_bool = "";
+									while (s[i] != ',') {
+										s_bool += s[i];
+										++i;
+									}
+									if (s_bool == "true") {
+										value = true;
+										object.field_obj.insert(std::pair<std::string, std::any>(key, value));
+									}
+								}
+								else {
+									if (s[i]=='n') {
+										std::string s_bool = "";
+										while (s[i] != ',') {
+											s_bool += s[i];
+											++i;
+										}
+										if (s_bool == "null") {
+											value = NULL;
+											object.field_obj.insert(std::pair<std::string, std::any>(key, value));
+										}
+									}
+								}
 							}
 						}
-						object.field_obj.insert(std::pair<std::string, std::any>(key, value));
-						//object.field_obj.insert(std::pair<std::string, std::any>(key, value));
 					}
 				}
 				key = "";
