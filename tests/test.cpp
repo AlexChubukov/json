@@ -10,15 +10,15 @@ string json = "{\n\"lastname\" : \"Ivanov\",\n\"firstname\" : \"Ivan\",\n\"age\"
 
 TEST_CASE("Testing pare") {
 	Json student = Json::parse(json);
-	REQUIRE(student["lastname"]== "Ivanov");
-	REQUIRE(student["islegal"]== false);
-	REQUIRE(student["age"]== 25);
+	REQUIRE(any_cast<string>(student["lastname"])== "Ivanov");
+	REQUIRE(any_cast<bool>(student["islegal"])== false);
+	REQUIRE(any_cast<double>(student["age"])== 25);
 	
 	auto marks = any_cast<Json>(student["marks"]);
-	REQUIRE(marks[0]== 4);
-	REQUIRE(marks[1]== 5);
+	REQUIRE(any_cast<double>(marks[0])== 4);
+	REQUIRE(any_cast<double>(marks[1])== 5);
 	
 	auto address = any_cast<Json>(student["address"]);
-	REQUIRE(address["city"] == "Moscow");
-	REQUIRE(address["street"] == "Vozdvijenka");
+	REQUIRE(any_cast<string>(address["city"]) == "Moscow");
+	REQUIRE(any_cast<string>(address["street"]) == "Vozdvijenka");
 }
