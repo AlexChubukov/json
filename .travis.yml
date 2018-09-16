@@ -69,7 +69,7 @@ before_script:
   - which $CXX
   - $CXX --version
   - cd ${TRAVIS_BUILD_DIR}
-  - cmake -H. -B_builds -DBUILD_TESTS=ON
+  - cmake -H. -B_build
 script:
-- cmake --build _builds
-- cmake --build _builds --target test -- ARGS=--verbose
+- cmake --build _build
+- cmake --build _build --target install
