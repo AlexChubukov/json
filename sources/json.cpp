@@ -19,7 +19,6 @@ int main()
 	SetConsoleOutputCP(1251);
 #endif
 
-
 	string json="{ \n\"lastname\" : \"Ivanov\",\n\"firstname\" : \"Ivan\",\n\"age\" : 25,\n\"islegal\" : false,\n\"marks\" : [\n4, 5, 5, 5, 2, 3\n],\n\"address\" : {\n\"city\" : \"Moscow\",\n\"street\" : \"Vozdvijenka\"\n\n}";
 
 	Json student = Json::parse(json);
