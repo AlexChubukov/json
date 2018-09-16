@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/AlexDeveloper24/json.svg?branch=master)](https://travis-ci.org/AlexDeveloper24/json)
