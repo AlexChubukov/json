@@ -1,4 +1,5 @@
 
+#include "stdafx.h"
 #include "Json.h"
 #include <cctype>
 #include <iostream>
@@ -58,6 +59,28 @@ Json::Json(const std::string & s) {
 									++i;
 								}
 								v.push_back(s_arr);
+							} else {
+								if (s[i] == '[') {
+									++i;
+									std::string s_mas="";
+									while (s[i]!=']'){
+										s_mas += s[i];
+										++i;
+									}
+									s_mas += " ";
+									++i;
+									v.push_back(Json(s_mas));
+								} else {
+									if (s[i] == '{') {
+										++i;
+										std::string str="";
+										while (s[i]!='}'){
+											str += s[i];
+											++i;
+										}
+										v.push_back(Json(str));
+									}
+								}
 							}
 						}
 					}
@@ -84,7 +107,7 @@ Json::Json(const std::string & s) {
 						else {
 							if (s[i] == 'f') {
 								std::string s_bool="";
-								while (s[i]!=',') {
+								while (s[i]!=',' && s[i]!='"' && s[i]!=' ') {
 									s_bool += s[i];
 									++i;
 								}
@@ -108,7 +131,7 @@ Json::Json(const std::string & s) {
 								else {
 									if (s[i]=='n') {
 										std::string s_bool = "";
-										while (s[i] != ',') {
+										while (s[i] != ',' && s[i]!=' ' && s[i] != '"') {
 											s_bool += s[i];
 											++i;
 										}
@@ -144,12 +167,18 @@ std::any & Json::operator[](const std::string & key) {
 			return it->second;
 		} 
 	}
+	std::any ret = "Key doesn`t exist";
+	return ret;
 }
 
 std::any & Json::operator[](int index) {
 	if (this->is_array()) {
-		return this->vec.field_arr[index];
+		if (index < vec.field_arr.size()) {
+			return this->vec.field_arr[index];
+		}
 	}
+	std::any ret = "specified index doesn`t exist";
+	return ret;
 }
 
 Json Json::parse(const std::string & s) {
