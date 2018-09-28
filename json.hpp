@@ -43,7 +43,7 @@ class Json {
   // Метод возвращает значение по индексу index, если экземпляр является JSON-массивом.
   // Значение может иметь один из следующих типов: Json, std::string, double, bool или быть пустым.
   // Если экземпляр является JSON-объектом, генерируется исключение.
-  std::any & operator[](int index);
+  std::any & operator[](unsigned int index);
 
   // Метод возвращает объект класса Json из строки, содержащей Json-данные.
   static Json parse(const std::string & s);
@@ -212,7 +212,7 @@ std::any & Json::operator[](const std::string & key) {
   throw 1;
 }
 
-std::any & Json::operator[](int index) {
+std::any & Json::operator[](unsigned int index) {
   if (this->is_array()) {
     if (index < vec.field_arr.size()) {
       return this->vec.field_arr[index];
