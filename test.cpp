@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Json.h"
+#include "json.hpp"
 
 namespace {
 
