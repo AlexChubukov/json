@@ -202,10 +202,10 @@ bool Json::is_object() const {
 }
 
 std::any & Json::operator[](const std::string & key) {
-  if (this - > is_object()) {
+  if (this->is_object()) {
     for (auto it = object.field_obj.begin(); it != object.field_obj.end(); ++it) {
-      if (it - > first == key) {
-        return it - > second;
+      if (it->first == key) {
+        return it->second;
       }
     }
   }
@@ -213,9 +213,9 @@ std::any & Json::operator[](const std::string & key) {
 }
 
 std::any & Json::operator[](int index) {
-  if (this - > is_array()) {
+  if (this->is_array()) {
     if (index < vec.field_arr.size()) {
-      return this - > vec.field_arr[index];
+      return this->vec.field_arr[index];
     }
   }
   throw 1;
