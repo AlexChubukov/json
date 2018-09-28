@@ -1,6 +1,13 @@
-#
-ifndef JSON_H# define JSON_H# endif // ! JSON_H
-# include < iostream > #include < fstream > #include < cctype > #include < string > #include < any > #include < map > #include < vector >
+#ifndef JSON_H
+# define JSON_H
+# endif // ! JSON_H
+# include < iostream >
+#include < fstream >
+#include < cctype >
+#include < string >
+#include < any >
+#include < map >
+#include < vector >
 
   struct Object {
     std::map < std::string, std::any > field_obj;
