@@ -14,5 +14,5 @@ add_library(my_library STATIC json.hpp) # Создание статическо�
 add_executable(json test.cpp) # Создает исполняемый файл с именем json
 
 find_package (Threads)
-target_link_libraries(executable -fsanitize=address gtest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(json -fsanitize=address gtest ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(json my_library)# Подключаем библиотеки к исполняемому файлу
