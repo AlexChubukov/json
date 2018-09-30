@@ -12,7 +12,7 @@
 
 const int OPS_ERROR = 1;
 
-struct object_ {
+struct Object {
   std::map<std::string, std::any> field_object;
 };
 
@@ -21,7 +21,7 @@ struct Array {
 };
 
 class Json {
-  object_ object_;
+  Object object_;
   Array vector_;
 
  public:
